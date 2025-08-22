@@ -312,8 +312,8 @@ config/local.py
 *.index
 embeddings_cache/
 
-# Model files
-models/
+# ML Model files (not database models)
+/ml_models/
 *.pkl
 *.joblib
 *.h5
