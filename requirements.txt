@@ -1,0 +1,85 @@
+# Core Flask Framework
+Flask==2.3.3
+Flask-CORS==4.0.0
+Flask-SQLAlchemy==3.0.5
+Flask-Migrate==4.0.5
+Flask-JWT-Extended==4.5.3
+Flask-Limiter==3.5.0
+
+# LLM and AI Libraries
+openai==1.3.5
+langchain==0.0.335
+langchain-openai==0.0.2
+transformers==4.35.2
+torch==2.1.1
+sentence-transformers==2.2.2
+
+# Vector Database and Search
+faiss-cpu==1.7.4
+chromadb==0.4.15
+whoosh==2.7.4
+
+# Data Processing
+pandas==2.1.3
+numpy==1.24.4
+scikit-learn==1.3.2
+nltk==3.8.1
+spacy==3.7.2
+
+# Database
+SQLAlchemy==2.0.23
+psycopg2-binary==2.9.9
+redis==5.0.1
+
+# Web Scraping and Document Processing
+requests==2.31.0
+beautifulsoup4==4.12.2
+PyPDF2==3.0.1
+python-docx==1.1.0
+
+# Security and Validation
+cryptography==41.0.7
+bcrypt==4.1.1
+python-jose[cryptography]==3.3.0
+marshmallow==3.20.1
+email-validator==2.1.0
+
+# Environment and Configuration
+python-dotenv==1.0.0
+pydantic==2.5.0
+pydantic-settings==2.0.3
+
+# Monitoring and Logging
+prometheus-client==0.19.0
+structlog==23.2.0
+sentry-sdk[flask]==1.38.0
+
+# Testing
+pytest==7.4.3
+pytest-flask==1.3.0
+pytest-cov==4.1.0
+pytest-mock==3.12.0
+factory-boy==3.3.0
+faker==20.1.0
+
+# Development Tools
+black==23.11.0
+flake8==6.1.0
+isort==5.12.0
+mypy==1.7.1
+pre-commit==3.5.0
+
+# Utilities
+click==8.1.7
+python-dateutil==2.8.2
+pytz==2023.3
+celery==5.3.4
+gunicorn==21.2.0
+
+# AWS and Cloud
+boto3==1.34.0
+botocore==1.34.0
+
+# HTTP and API
+httpx==0.25.2
+aiohttp==3.9.1
