@@ -5,7 +5,7 @@ Implements IRS EITC calculation rules based on Publication 596
 
 import structlog
 from typing import Dict, List, Optional
-from datetime import datetime
+from datetime import datetime, timedelta
 
 logger = structlog.get_logger()
 
@@ -274,3 +274,48 @@ class EITCCalculator:
         explanation.append("Please consult IRS Publication 596 or a tax professional for more information.")
         
         return explanation
+
+    def get_income_limits(self, filing_status: str, qualifying_children: int) -> Dict:
+        """Get income limits for EITC eligibility"""
+        filing_status_normalized = self._normalize_filing_status(filing_status)
+        children_key = min(qualifying_children, 3)
+
+        limits = self.eitc_tables['income_limits'][filing_status_normalized][children_key]
+        max_credit = self.eitc_tables['max_credits'][children_key]
+
+        return {
+            'earned_income_limit': limits['earned'],
+            'agi_limit': limits['agi'],
+            'max_credit_amount': max_credit,
+            'investment_income_limit': self.eitc_tables['investment_income_limit']
+        }
+
+    def estimate_credit_by_income(self, filing_status: str, qualifying_children: int,
+                                 income_amounts: List[float]) -> List[Dict]:
+        """Estimate EITC for different income levels"""
+        results = []
+
+        for income in income_amounts:
+            try:
+                result = self.calculate(
+                    filing_status=filing_status,
+                    adjusted_gross_income=income,
+                    earned_income=income,
+                    qualifying_children=qualifying_children
+                )
+
+                results.append({
+                    'income': income,
+                    'credit_amount': result['credit_amount'],
+                    'eligible': result['eligible']
+                })
+            except Exception as e:
+                logger.error("Error calculating EITC for income", income=income, error=str(e))
+                results.append({
+                    'income': income,
+                    'credit_amount': 0,
+                    'eligible': False,
+                    'error': str(e)
+                })
+
+        return results
